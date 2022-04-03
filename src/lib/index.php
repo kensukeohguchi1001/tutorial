@@ -1,17 +1,16 @@
 <?php
 
-class Member
+// カードの定義
+const HIGH_CARD = 'high card';
+const PAIR = 'pair';
+const STRAIGHT = 'straight';
+
+// 役の定義1
+// 役の定義2 j,q,k,ace
+
+function showDown(): array
 {
-  private $name;
-  function __construct(string $name)
-  {
-      $this->name = $name;
-  }
-  function getName()
-  {
-    return $this->name;
-  }
+    return [];
 }
 
-$member = new Member('田中');
-echo $member->getName();
+showDown('CK', 'DJ', 'C10', 'H10');
