@@ -1,0 +1,69 @@
+■即時関数の書き方について
+
+define("CARD_HANDS", (function()
+{
+foreach (CARD as $index => $hand) {
+CARD_HANDS[$hand] = $index;
+}
+})());
+
+↑これで関数を呼び出している
+
+■エラー内容
+下記エラー
+
+Cannot use temporary expression in write context in /var/www/html/lib/index.php on line 14
+
+Fatal error: Cannot use temporary expression in write context in /var/www/html/lib/index.php on line 14
+
+■原因
+
+•リターン文がない、なにも返していない
+•関数の中で変数を定義していない、その変数に値を入れて返せばいいところをdefineで定義した定数にforeachで値を入れていたため
+
+■コード(修正後)
+
+define("CARD_HANDS", (function()
+{
+$cardRanks = [];
+foreach (CARDS as $index => $hand) {
+$cardRanks[$hand] = $index;
+}
+return $cardRanks;
+})());
+
+
+■arraymapの使い方
+
+$convertToHands = substr($cardArray, 1);
+これに対して、Expected type 'string'. Found 'array'.intelephense(1006)というエラー
+
+substrはstringに対して処理を行う、配列を渡してしまっている
+ここでforeachで値を配列から取り出すこともできるけど、それは避けたい。
+だとしたらarray_mapを使用して、配列の要素一つ一つに処理を行う
+
+
+■array_map 第一引数に対して
+関数を定義する
+その中でプレイヤー1とプレイヤー2の配列をそれぞれ処理を行いたい
+
+↑対策
+まずは、アロー関数と無名関数の復習を行いましょう
+
+●input
+無名関数
+$times = 3;
+$numbers = [1,2,3];
+$products = array_map(function ($num) use ($times)){
+  return $num * $times;
+},$number);
+
+アロー関数
+$times = 3;
+$numbers = [1,2,3];
+$products = array_map(fn ($num) => return $num * $times,$numbers);
+
+
+
+
+$hands = array_map(fn ($playerCardRank) => checkHand($playerCardRank[0], $playerCardRank[1]), $playerCardRanks)
