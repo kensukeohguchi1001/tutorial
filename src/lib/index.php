@@ -1,55 +1,87 @@
 <?php
 
-// カードの定義
 const HIGH_CARD = 'high card';
 const PAIR = 'pair';
 const STRAIGHT = 'straight';
-const ARRAY_SEPARATE_NUMBER = 2;
 
-const CARDS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'k', 'A'];
-
-define("CARD_HANDS", (function()
-{
-    $cardRanks = [];
-    foreach (CARDS as $index => $hand) {
-        $cardRanks[$hand] = $index;
-    }
-    return $cardRanks;
+const CARDS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+define('CARD_RANK', (function () {
+$cardRanks = [];
+foreach (CARDS as $index => $card) {
+$cardRanks[$card] = $index;
+}
+return $cardRanks;
 })());
 
-function showDown($card11, $card12, $card21, $card22): array
-{
-    $convertToHands = convertToHands([$card11, $card12, $card21, $card22]);
-    $playerHands = array_chunk($convertToHands, ARRAY_SEPARATE_NUMBER);
-    $judgementHands = array_map(fn ($playerHand) => judgementHands($playerHand[0], $playerHand[1]), $playerHands);
+const HAND_RANK = [
+HIGH_CARD => 1,
+PAIR => 2,
+STRAIGHT => 3,
+];
 
-    var_dump($playerHands);
-    return [];
+function showDown(string $card11, string $card12, string $card21, string $card22): array
+{
+$cardRanks = convertToCardRanks([$card11, $card12, $card21, $card22]);
+$playerCardRanks = array_chunk($cardRanks, 2);
+$hands = array_map(fn ($playerCardRank) => checkHand($playerCardRank[0], $playerCardRank[1]), $playerCardRanks);
+$winner = decideWinner($hands[0], $hands[1]);
+return [$hands[0]['name'], $hands[1]['name'], $winner];
 }
 
-function convertToHands(array $cardArray): array
+function convertToCardRanks(array $cards): array
 {
-    // $convertToHands = substr($cardArray, 1);
-    return array_map(function($card) {
-    return substr($card, 1, strlen($card) - 1);
-    }, $cardArray);
+return array_map(fn ($card) => CARD_RANK[substr($card, 1, strlen($card) - 1)], $cards);
 }
 
-// これらの処理をプレイヤー１とプレイヤ２の配列に行いたい
-function judgementHands($player1, $player2): array
+function checkHand(int $cardRank1, int $cardRank2): array
 {
-    $name = HIGH_CARD;
+$primary = max($cardRank1, $cardRank2);
+$secondary = min($cardRank1, $cardRank2);
+$name = HIGH_CARD;
 
-    if (true) {
-        $name = STRAIGHT;
-    } else if (true) {
-        $name = PAIR;
-    }
-    return [];
+if (isStraight($cardRank1, $cardRank2)) {
+$name = STRAIGHT;
+if (isMinMax($cardRank1, $cardRank2)) {
+$primary = min(CARD_RANK);
+$secondary = max(CARD_RANK);
+}
+} elseif (isPair($cardRank1, $cardRank2)) {
+$name = PAIR;
 }
 
-showDown('CK', 'DJ', 'C10', 'H10');
+return [
+'name' => $name,
+'rank' => HAND_RANK[$name],
+'primary' => $primary,
+'secondary' => $secondary,
+];
+}
 
-// コンバートしたカードの配列をplayer1とplayer2にわける
-// それぞれのカードの役の判定を行なっていく
-//
+function isStraight(int $cardRank1, int $cardRank2): bool
+{
+return abs($cardRank1 - $cardRank2) === 1 || isMinMax($cardRank1, $cardRank2);
+}
+
+function isMinMax(int $cardRank1, int $cardRank2): bool
+{
+return abs($cardRank1 - $cardRank2) === (max(CARD_RANK) - min(CARD_RANK));
+}
+
+function isPair(int $cardRank1, int $cardRank2): bool
+{
+return $cardRank1 === $cardRank2;
+}
+
+function decideWinner(array $hand1, array $hand2): int
+{
+foreach (['rank', 'primary', 'secondary'] as $k) {
+if ($hand1[$k] > $hand2[$k]) {
+return 1;
+}
+
+if ($hand1[$k] < $hand2[$k]) { return 2; } } return 0;
+}
+
+
+$showDown = showDown('CK', 'DJ' , 'C3' , 'H4' );
+var_dump($showDown);

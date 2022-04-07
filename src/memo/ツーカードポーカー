@@ -58,7 +58,7 @@ $products = array_map(function ($num) use ($times)){
   return $num * $times;
 },$number);
 
-アロー関数
+アロー関数      
 $times = 3;
 $numbers = [1,2,3];
 $products = array_map(fn ($num) => return $num * $times,$numbers);
@@ -67,3 +67,13 @@ $products = array_map(fn ($num) => return $num * $times,$numbers);
 
 
 $hands = array_map(fn ($playerCardRank) => checkHand($playerCardRank[0], $playerCardRank[1]), $playerCardRanks)
+
+■型についてのエラーが発生している
+エラー内容
+int型で値を受け取らないといけないところをstring型で受け取っている
+
+どうしたらいい？
+どこで、値を受け取っているか
+そこで渡してる(string)値をint型に変更するにはどうしたらいいか
+
+これらを考える。
