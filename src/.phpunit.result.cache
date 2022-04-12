@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":[]}
+{"version":1,"defects":{"GameTest::testStart":4,"PlayerTest::testDrawCards":4,"PokerGameTest::testStart":3},"times":{"GameTest::testStart":0.04,"PlayerTest::testDrawCards":0,"PokerGameTest::testStart":0}}
