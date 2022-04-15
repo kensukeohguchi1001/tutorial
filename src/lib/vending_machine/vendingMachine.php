@@ -1,22 +1,27 @@
 <?php
 
-class vendingMachine
+class VendingMachine
 {
-    private function depositCoin(int $coin): int
-    {
-      if ($this->coin = 100) {
-        return 100;
-      } else {
-        return 0;
-      }
+  private const PRICE_OF_DRINK = 100;
+
+  private int $depositedCoin = 0;
+
+  public function depositCoin(int $coinAmount): int
+  {
+    if ($coinAmount === 100) {
+      $this->depositedCoin += $coinAmount;
     }
 
-    public function pressButton(): string
-    {
-        if($this->depositCoin(100)){
-          return 'cider';
-        } else {
-          return '';
-        }
+    return $this->depositedCoin;
+  }
+
+  public function pressButton(): string
+  {
+    if ($this->depositedCoin >= $this::PRICE_OF_DRINK) {
+      $this->depositedCoin -= $this::PRICE_OF_DRINK;
+      return 'cider';
+    } else {
+      return '';
     }
+  }
 }
