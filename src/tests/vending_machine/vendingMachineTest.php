@@ -26,3 +26,4 @@ class VendingMachineTest extends TestCase
     $this->assertSame('cider', $vendingMachine->pressButton());
   }
 }
+// thisに入れていることで違うメソッドを呼び出せるメソッドを呼び出せる
