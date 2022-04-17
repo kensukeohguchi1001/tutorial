@@ -12,6 +12,8 @@ class VendingMachineTest extends TestCase
     $this->assertSame(0, $vendingMachine->depositCoin(0));
     $this->assertSame(0, $vendingMachine->depositCoin(150));
     $this->assertSame(100, $vendingMachine->depositCoin(100));
+    $this->assertSame(200, $vendingMachine->depositCoin(100));
+
   }
 
   public function testPressButton()
