@@ -7,6 +7,8 @@ class PokerGame
     }
     public function start(): array
     {
-        return [$this->cards1, $this->cards2];
+        $judge = new Judge();
+        $hand = $judge->handsJudge($this->card1, $this->card2);
+        return [];
     }
 }
