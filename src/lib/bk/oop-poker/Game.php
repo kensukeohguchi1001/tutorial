@@ -1,11 +1,8 @@
 <?php
 
-// ファイルを読み込む
-require_once('player.php');
+require_once('Player.php');
 require_once('Deck.php');
 
-
-// コンストラクタで値を受け取る
 
 class Game
 {
@@ -15,9 +12,10 @@ class Game
 
     public function start()
     {
-        $player = new Player($this->name);
         $deck = new Deck();
+        $player = new Player($this->name);
         $cards = $player->drawCards($deck, $this->drawNum);
+
         return $cards;
     }
 }
