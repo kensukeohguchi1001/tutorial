@@ -1,10 +1,7 @@
 <?php
 
-require_once('HandEvaluator.php');
+require_once('Rule.php');
 
-class RuleA
+class RuleA extends Rule
 {
-  public function __construct(private string $rule)
-  {
-  }
 }

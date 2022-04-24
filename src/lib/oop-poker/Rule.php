@@ -1,12 +1,9 @@
 <?php
 
-require_once('HandEvaluator.php');
-
 class Rule
 {
-  public function __construct(private string $rule)
+  public function getHand(array $cards): string
   {
+      return 'pair';
   }
-
-
 }
