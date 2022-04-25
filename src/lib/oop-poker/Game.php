@@ -18,23 +18,8 @@ class Game
         $deck = new Deck();
         $player = new Player($this->name);
         $cards = $player->drawCards($deck, $this->drawNum);
-        $rule = $this->getRule();
-        $handEvaluator = new HandEvaluator($rule);
-        $hand = $handEvaluator->getHand($cards);
-        return $hand;
+        return $cards;
     }
-
-    public function getRule()
-    {
-        if ($this->ruleType === 'A') {
-            return new RuleA();
-        }
-        if ($this->ruleType === 'B') {
-            return new RuleB();
-        }
-
-    }
-
     // ここで条件分岐を書く
 }
 
