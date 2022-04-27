@@ -1,8 +1,5 @@
 <?php
 
-class Rule{
-  public function getHand(array $cards): string
-  {
-      return 'pair';
-  }
+abstract class Rule{
+  abstract public function getHand(array $cards);
 }
