@@ -1,8 +1,7 @@
 <?php
 
-require_once('Player.php');
 require_once('Deck.php');
-
+require_once('Player.php');
 
 class Game
 {
@@ -12,10 +11,8 @@ class Game
 
     public function start()
     {
-        $deck = new Deck();
         $player = new Player($this->name);
-        $cards = $player->drawCards($deck, $this->drawNum);
-
+        $cards = $player->drawCards($this->drawNum);
         return $cards;
     }
 }
