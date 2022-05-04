@@ -24,7 +24,6 @@ class PokerCard
 
     public function getRank(): int
     {
-        // クラス内の定数には self::CONSTANT でアクセスできます
         return self::CARD_RANK[substr($this->suitNumber, 1, strlen($this->suitNumber) - 1)];
     }
 }

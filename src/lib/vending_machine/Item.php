@@ -1,24 +1,16 @@
 <?php
 
-class Item
+abstract class Item
 {
-  private const ITEM_PRICE = [
-    'cider' => 100,
-    'cola' => 150,
-  ];
+    abstract public function getPrice();
+    abstract public function getCupNumber();
 
-  public function __construct(private string $name)
-  {
-  }
+    public function __construct(protected string $name)
+    {
+    }
 
-  public function getPrice()
-  {
-    return self::ITEM_PRICE[$this->name];
-  }
-
-
-  public function getName()
-  {
-    return $this->name;
-  }
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }
