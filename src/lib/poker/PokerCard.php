@@ -2,7 +2,7 @@
 
 class PokerCard
 {
-    const CARD_RANK = [
+    public const CARD_RANK = [
         '2' => 1,
         '3' => 2,
         '4' => 3,

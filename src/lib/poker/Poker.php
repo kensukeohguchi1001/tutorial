@@ -1,12 +1,7 @@
 <?php
 
-require_once('PokerPlayer.php');
 require_once('PokerCard.php');
-require_once('PokerJudge.php');
-require_once('PokerHands.php');
-require_once('PokerStraight.php');
-require_once('PokerPair.php');
-require_once('PokerHighCard.php');
+require_once('PokerHandEvaluator.php');
 
 class Poker
 {
@@ -16,16 +11,12 @@ class Poker
 
     public function start(): array
     {
-        $playerCardRanks = [];
+        $hands = [];
         foreach ([$this->cards1, $this->cards2] as $cards) {
             $pokerCards = array_map(fn ($card) => new PokerCard($card), $cards);
-            $player = new PokerPlayer($pokerCards);
-            $playerCardRanks[] = $player->getCardRanks();
-            $pokerJudge = new PokerJudge($playerCardRanks);
-            $cardHands = $pokerJudge->getHands();
+            $handEvaluator = new PokerHandEvaluator();
+            $hands[] = $handEvaluator->getHand($pokerCards);
         }
-        return $cardHands;
+        return $hands;
     }
-
-
 }
