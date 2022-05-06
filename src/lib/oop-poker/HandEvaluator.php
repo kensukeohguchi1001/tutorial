@@ -4,7 +4,7 @@ require_once('Rule.php');
 
 class HandEvaluator
 {
-    public function __construct(private $rule)
+    public function __construct(private Rule $rule)
     {
     }
 
