@@ -2,12 +2,10 @@
 
 require_once('Item.php');
 
-
-class Drink extends Item
+class PotatoChips extends Item
 {
     private const PRICES = [
-        'cider' => 100,
-        'cola' => 150,
+        'PotatoChips' => 150,
     ];
 
     public function __construct(string $name)
@@ -15,7 +13,7 @@ class Drink extends Item
         parent::__construct($name);
     }
 
-    public function getPrice()
+    public function getPrice(): int
     {
         return self::PRICES[$this->name];
     }
