@@ -15,6 +15,6 @@ abstract class Clock
     // 時間を取得する
     public function getTime(): string
     {
-        return $this->time;   
+        return $this->time;
     }
 }
