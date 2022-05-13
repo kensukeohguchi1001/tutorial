@@ -36,4 +36,4 @@ class PokerHandEvaluator
   {
     return $cardRank1 === $cardRank2;
   }
-}
+} 
