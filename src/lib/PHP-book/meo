@@ -1,3 +1,15 @@
-Exception class
+
+●Exception class
 定義済みのものなのか、、
-  
+
+●Exceptionについて
+
+try {
+    $priceWithTax = $calculate->calculate(100, -0.5);
+} catch (Exception $exception) {  // この部分はどのような仕様になってるのか
+    echo '税込金額が計算できませんでした '. $exception->getMessage(). PHP_EOL;
+} finally {
+    $calculate->reset();
+}
+インスタンスを受け取っている
+TaxCalculateで作成したインスタンスなのか

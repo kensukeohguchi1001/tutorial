@@ -2,7 +2,7 @@
 
 class TaxCalculator
 {
-    private int $lastCalculated;
+    private $lastCalculated;
 
     public function calculate(int $price, float $tax): float
         {
