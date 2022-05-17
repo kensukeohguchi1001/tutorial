@@ -1,6 +1,6 @@
 <?php
 
-require_once __FILE__ . '/PlayingCard.php';
+require_once('PlayingCard.php');
 
 class MemoryGame
 {
