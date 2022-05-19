@@ -2,16 +2,12 @@
 
 class Card
 {
-        public function __construct(private string $suit, private int $number)
+        public function __construct(private string $suit)
         {
         }
 
-        public function getSuit()
+        public function getRank()
         {
             return $this->suit;
-        }
-        public function getNumber()
-        {
-            return $this->number;
         }
 }

@@ -9,37 +9,28 @@ require_once('RuleB.php');
 
 class Game
 {
-    public function __construct(private string $name, private int $drawNum, private string $ruleType)
+    public function __construct(private array $cards1, private array $cards2)
     {
     }
 
     public function start()
     {
-        // カードの山というアクターに対してインスタンスを作成する
-        $deck = new Deck();
-        // コンストラクタで受け取ったプレイヤーの名前を引数にとるプレイヤーインスタンスを作成
-        $player = new Player($this->name);
-        // プレイヤーがカードを引く(drawCards)
-        // カードの束と引く枚数を引数にとる
-        $cards = $player->drawCards($deck, $this->drawNum);
-        // メソッドを呼び出し、ルールインスタンスを作成$ruleに代入
-        $rule = $this->getRule();
-        
-        $handEvaluator = new HandEvaluator($rule);
-        $hand = $handEvaluator->getHand($cards);
-        return $hand;
+        $hands = [];
+        foreach ([$this->cards1, $this->cards2] as $cards) {
+                $PokerCard = array_map(fn ($card) => new Card($card), $cards);
+                $rule = $this->getRule($cards);
+                $handEvaluator = new HandEvaluator($rule);
+                $hands[] = $handEvaluator->getHand($PokerCard);
+        }
+
     }
 
-    public function getRule()
+    public function getRule(array $cards)
     {
-        if ($this->ruleType === 'A') {
-            return new RuleA();
+        $rule = new PokerTwoCardRule;
+        if (count($cards) === 3 ) {
+            $rule = new PokerThreeCardRule;
         }
-        if ($this->ruleType === 'B') {
-            return new RuleB();
-        }
-        if ($this->ruleType === 'C') {
-            return new RuleC();
-        }
+        return $rule;
     }
 }
