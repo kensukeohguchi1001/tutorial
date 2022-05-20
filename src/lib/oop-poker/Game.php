@@ -1,11 +1,9 @@
 <?php
 
-require_once('Player.php');
-require_once('Deck.php');
+require_once('Card.php');
 require_once('HandEvaluator.php');
-require_once('RUleA.php');
-require_once('RuleB.php');
-
+require_once('PokerTwoCardRule.php');
+require_once('PokerThreeCardRule.php');
 
 class Game
 {
@@ -22,13 +20,13 @@ class Game
                 $handEvaluator = new HandEvaluator($rule);
                 $hands[] = $handEvaluator->getHand($PokerCard);
         }
-
+        return $hands;
     }
 
-    public function getRule(array $cards)
+    public function getRule(array $cards): PokerRule
     {
         $rule = new PokerTwoCardRule;
-        if (count($cards) === 3 ) {
+        if (count($cards) === 3) {
             $rule = new PokerThreeCardRule;
         }
         return $rule;

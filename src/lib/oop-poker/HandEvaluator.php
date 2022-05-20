@@ -1,6 +1,6 @@
 <?php
 
-require_once('Rule.php');
+require_once('PokerRule.php');
 
 class HandEvaluator
 {
