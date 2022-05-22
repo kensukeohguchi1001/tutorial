@@ -22,8 +22,8 @@ class Card
         {
         }
 
-        public function getRank()
+        public function getRank(): int
         {
-            return self::CARD_RANK[substr($this->suit, 1, strlen($this->suit - 1))];
+            return self::CARD_RANK[substr($this->suit, 1, strlen($this->suit) - 1)];
         }
 }
