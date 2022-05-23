@@ -14,31 +14,32 @@ class PokerThreeCardRule implements PokerRule
       {
             $cardRanks = array_map(fn ($card) => $card->getRank(), $cards);
             $name = self::HIGH_CARD;
-            if ($this->isStraight($cardRanks[0], $cardRanks[1], $cardRanks[2])) {
+            if ($this->isStraight($cardRanks)) {
                   $name = self::STRAIGHT;
-            } elseif ($this->isPair($cardRanks[0], $cardRanks[1], $cardRanks[2])) {
+            } elseif ($this->isPair($cardRanks)) {
                   $name = self::PAIR;
-            } else 
+            } else
             return $name;
       }
 
-      public function isStraight(int $card1, int $card2, int $card3): bool
+      public function isStraight(array $cardRanks): bool
       {
-            return $card1 - $card2 === 1 && $card2 - $card3 === 1 || $this->isMinMax($card1, $card2, $card3);
+            sort($cardRanks);
+            return range($cardRanks[0], $cardRanks[0] + count($cardRanks) - 1) === $cardRanks || $this->isMinMax($cardRanks);
       }
 
-      public function isMinMax(int $card1, int $card2, int $card3): bool
+      public function isMinMax(array $cardRanks): bool
       {
-            return abs($card1 - $card2) === (max(Card::CARD_RANK) - min(Card::CARD_RANK)) && $card3 === 3;
+            return $cardRanks === [min(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, max(PokerCard::CARD_RANK)];
       }
 
-      public function isPair(int $card1, int $card2, int $card3): bool
+      public function isPair(array $cardRanks): bool
       {
-            return $card1 === $card2 !== $card3 || $card1 !== $card2 === $card3 || $card1 === $card3 !== $card2;
+            return count(array_unique($cardRanks)) === 2;
       }
-      public function isThreeCard(int $card1, int $card2, int $card3): bool
+      public function isThreeCard(array $cardRanks): bool
       {
-            return $card1 === $card2 === $card3;
+            return count(array_unique($cardRanks)) === 1;
       }
 
 }
