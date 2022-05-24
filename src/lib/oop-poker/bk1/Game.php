@@ -25,14 +25,9 @@ class Game
 
     public function getRule(array $cards): PokerRule
     {
-        // ツーカードポーカー
         $rule = new PokerTwoCardRule;
-        // スリーカードポーカー
         if (count($cards) === 3) {
             $rule = new PokerThreeCardRule;
-        // ファイブカードポーカー
-        } elseif (count($cards) === 5) {
-            $rule = new PokerFiveCardRule;
         }
         return $rule;
     }
