@@ -13,6 +13,7 @@ class PokerThreeCardRule implements PokerRule
       public function getHand(array $cards)
       {
             $cardRanks = array_map(fn ($card) => $card->getRank(), $cards);
+            sort($cardRanks);
             $name = self::HIGH_CARD;
             if ($this->isStraight($cardRanks)) {
                   $name = self::STRAIGHT;
@@ -24,7 +25,6 @@ class PokerThreeCardRule implements PokerRule
 
       public function isStraight(array $cardRanks): bool
       {
-            sort($cardRanks);
             return range($cardRanks[0], $cardRanks[0] + count($cardRanks) - 1) === $cardRanks || $this->isMinMax($cardRanks);
       }
 
