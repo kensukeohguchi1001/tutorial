@@ -13,4 +13,5 @@ class HandEvaluator
         return $this->rule->getHand($cards);
     }
 
+    
 }
