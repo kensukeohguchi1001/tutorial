@@ -24,7 +24,6 @@ class PokerTwoCardRule implements PokerRule
         public function isStraight(int $card1, int $card2): bool
         {
             return abs($card1 - $card2) === 1 || $this->isMinMax($card1, $card2);
-
         }
 
         public function isMinMax(int $card1, int $card2): bool
