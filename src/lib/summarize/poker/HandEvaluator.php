@@ -10,7 +10,7 @@ class HandEvaluator
 
     public function getHand(array $cards): string
     {
-          $convertToNumber = array_map(fn ($card) => $card->getRank(), $cards);
-          return $this->rule->getHand($convertToNumber);
+            $convertToNumber = array_map(fn ($card) => $card->getRank(), $cards);
+            return $this->rule->getHand($convertToNumber);
     }
 }
